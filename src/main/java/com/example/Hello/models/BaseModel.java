@@ -1,14 +1,21 @@
 package com.example.Hello.models;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.autoconfigure.web.WebProperties;
 
 import java.util.Date;
 
 @Setter
 @Getter
+@MappedSuperclass
 public abstract class BaseModel
 {
+    @Id
     private long Id;
     private Date CreatedAt;
     private Date lastUpdatedAt;

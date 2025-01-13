@@ -1,12 +1,7 @@
 package com.example.Hello.dtos;
 
 import com.example.Hello.models.Category;
-import lombok.Getter;
-import lombok.Setter;
 
-
-@Setter
-@Getter
 public class Productdto
 {
     private long id;
@@ -15,9 +10,6 @@ public class Productdto
     private String imageurl;
     private Double amount;
     private Categorydto categorydto;
-
-
-
 
 
     public long getId() {

@@ -1,13 +1,18 @@
 package com.example.Hello.models;
 
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 
+@Entity
 public class Product extends BaseModel
 {
     private String title;
     private String description;
     private String ImageUrl;
     private Double amount;
+    @ManyToOne(cascade = CascadeType.ALL)
     private Category category;
     private boolean IsPrimespecific;
 

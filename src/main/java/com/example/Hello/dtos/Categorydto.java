@@ -2,13 +2,9 @@ package com.example.Hello.dtos;
 
 import com.example.Hello.models.BaseModel;
 import com.example.Hello.models.Product;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.List;
 
-@Setter
-@Getter
+
 public class Categorydto
 {       private long id;
         private String name;

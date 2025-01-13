@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Primary
 public class ProductService3p implements IProductService
 {
     private FakestoreProductservice fakestoreProductservice;
