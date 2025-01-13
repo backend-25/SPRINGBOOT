@@ -50,11 +50,13 @@ public class ProductService3p implements IProductService
         return fakestoreProductservice.ReplaceProduct(product,Id);
     }
 
-
-
-
-
+    @Override
+    public Product DeleteProduct(long Id) {
+        return fakestoreProductservice.DeleteProduct(Id);
     }
+
+
+}
 
 
 

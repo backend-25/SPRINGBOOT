@@ -85,6 +85,12 @@ public class FakestoreProductservice
     }
 
 
+    public Product DeleteProduct(long Id) {
+        FakestoreProductdto fakestoreProductdto;
+        fakestoreProductdto=RequestForEntity("https://fakestoreapi.com/products/{Id}",HttpMethod.DELETE,null,FakestoreProductdto.class,Id).getBody();
+        return from(fakestoreProductdto);
+    }
+
 
 
 

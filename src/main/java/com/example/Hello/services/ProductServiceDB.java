@@ -16,6 +16,11 @@ public class ProductServiceDB implements IProductService {
     }
 
     @Override
+    public Product DeleteProduct(long Id) {
+        return null;
+    }
+
+    @Override
     public List<Product> getAllProducts() {
         return List.of();
     }

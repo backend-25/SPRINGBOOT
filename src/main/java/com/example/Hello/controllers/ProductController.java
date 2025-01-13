@@ -70,6 +70,12 @@ public class ProductController
 
     }
 
+    @DeleteMapping("/{id}")
+    public Productdto deleteProduct(@PathVariable long id) {
+        Product DeletedProduct=myproductservice.DeleteProduct(id);
+        return from(DeletedProduct);
+    }
+
 
 
 
