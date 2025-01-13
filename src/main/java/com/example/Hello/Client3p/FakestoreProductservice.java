@@ -27,6 +27,21 @@ public class FakestoreProductservice
         this.restTemplate = restTemplate;
     }
 
+ //API
+
+
+    public Product createProduct(Product product)
+    {
+
+        FakestoreProductdto fakestoreProductdto=from(product);
+
+        FakestoreProductdto fProductdto=RequestForEntity("https://fakestoreapi.com/products",HttpMethod.POST,fakestoreProductdto,FakestoreProductdto.class).getBody();
+
+        return from(fProductdto);
+    }
+
+
+
     public List<Product> getAllProducts() {
         FakestoreProductdto[] fakestoreProductdtos;
         fakestoreProductdtos=restTemplate.getForEntity("https://fakestoreapi.com/products",FakestoreProductdto[].class).getBody();
@@ -59,7 +74,7 @@ public class FakestoreProductservice
         ResponseExtractor<ResponseEntity<T>> responseExtractor = restTemplate.responseEntityExtractor(responseType);
         return restTemplate.execute(url,method, requestCallback, responseExtractor, uriVariables);
     }
-    
+
     public Product ReplaceProduct(Product product,long Id)
     {
         FakestoreProductdto fakestoreProductdto=from(product);

@@ -23,6 +23,16 @@ public class ProductController
         this.myproductservice=service;
 }
 
+
+
+
+    @PostMapping("")
+    public Productdto CreateProduct(@RequestBody Productdto productdto){
+        Product product= from(productdto);
+        Product NewProduct=myproductservice.createProduct(product);
+        return from(NewProduct);
+    }
+
     @GetMapping("")
     public List<Productdto> getAllProducts()
     {
@@ -49,13 +59,6 @@ public class ProductController
         Product product=myproductservice.getProductById(productId);
         if(product==null) {return null;  }
         return new ResponseEntity<> (from(product), HttpStatus.OK);
-    }
-
-    @PostMapping("/")
-    public Productdto CreateProduct(@RequestBody Productdto productobj){
-
-        return null;
-
     }
 
     @PutMapping("/{id}")

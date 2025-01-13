@@ -41,7 +41,7 @@ public class ProductService3p implements IProductService
 
     @Override
     public Product createProduct(Product product) {
-        return null;
+        return fakestoreProductservice.createProduct(product);
     }
 
 
