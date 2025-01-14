@@ -3,6 +3,7 @@ package com.example.Hello.models;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -13,6 +14,7 @@ public class Product extends BaseModel
     private String ImageUrl;
     private Double amount;
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
     private Category category;
     private boolean IsPrimespecific;
 

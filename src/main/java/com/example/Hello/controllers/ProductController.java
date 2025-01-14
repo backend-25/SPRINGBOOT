@@ -1,12 +1,12 @@
 package com.example.Hello.controllers;
 import com.example.Hello.dtos.Categorydto;
-import com.example.Hello.dtos.FakestoreProductdto;
 import com.example.Hello.dtos.Productdto;
 import com.example.Hello.models.Category;
 import com.example.Hello.models.Product;
 import com.example.Hello.services.IProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,13 +17,10 @@ import java.util.List;
 @RequestMapping("/Products")
 public class ProductController
 {
+
+    @Autowired
+    @Qualifier("DBSERVICE")
     private IProductService myproductservice;
-
-    public ProductController(IProductService service){
-        this.myproductservice=service;
-}
-
-
 
 
     @PostMapping("")
@@ -75,6 +72,9 @@ public class ProductController
         Product DeletedProduct=myproductservice.DeleteProduct(id);
         return from(DeletedProduct);
     }
+
+
+
 
 
 

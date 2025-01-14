@@ -1,28 +1,38 @@
 package com.example.Hello.services;
 
 
+import com.example.Hello.Repos.CategoryRepo;
 import com.example.Hello.Repos.ProductRepo;
+import com.example.Hello.models.Category;
 import com.example.Hello.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@Primary
+@Service("DBSERVICE")
 public class ProductServiceDB implements IProductService
 {
     @Autowired
     private ProductRepo productRepo;
+
+    @Autowired
+    private CategoryRepo categoryRepo;
+
+    //----------------------------------------------
+
+
+
+
 
     @Override
     public Product createProduct(Product product)
     {
         return productRepo.save(product);
     }
+
 
     @Override
     public Product getProductById(long id)
@@ -74,8 +84,21 @@ public class ProductServiceDB implements IProductService
         {
             Product productToDelete = optionalProduct.get();
             productRepo.deleteById(Id); // Delete the product from the database
-            return productToDelete; // Return the deleted product as confirmation
+            return productToDelete;
+            // Return the deleted product as confirmation
         }
         return null; // Return null if the product does not exist
     }
+
+    @Override
+    public Category getCategoryById(long id)
+    {
+        Optional<Category> optionalCategory= categoryRepo.findById(id);
+        if(optionalCategory.isPresent())
+        {
+            return optionalCategory.get();
+        }
+        return null;
+    }
+
 }
