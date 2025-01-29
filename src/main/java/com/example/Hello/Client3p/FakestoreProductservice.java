@@ -3,6 +3,8 @@ package com.example.Hello.Client3p;
 import com.example.Hello.dtos.FakestoreProductdto;
 import com.example.Hello.models.Category;
 import com.example.Hello.models.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,9 @@ public class FakestoreProductservice
 {
 
     private RestTemplate restTemplate;
+
+    @Autowired
+    private RedisTemplate<String,Object> redisTemplate;
 
     public FakestoreProductservice(RestTemplate restTemplate)
     {
@@ -56,14 +61,31 @@ public class FakestoreProductservice
 
     public Product getProductById(long id)
     {
-        ResponseEntity<FakestoreProductdto> fakestoreProductdtoResponseEntity;
-        fakestoreProductdtoResponseEntity= restTemplate.getForEntity("https://fakestoreapi.com/products/{myid}",FakestoreProductdto.class,id);
-        FakestoreProductdto fakestoreProductdto=fakestoreProductdtoResponseEntity.getBody();
-        if(fakestoreProductdtoResponseEntity.getStatusCode().equals(HttpStatusCode.valueOf(200)) && fakestoreProductdto !=null){
+        //check in cache
+            //if found return else store
+        
+        
+        FakestoreProductdto fakestoreProductdto = (FakestoreProductdto) redisTemplate.opsForHash().get("products",id);
+        if(fakestoreProductdto!=null)
+        {
+            System.out.println("Found in cache");
             return from(fakestoreProductdto);
         }
-        else {
-            return null;
+        else
+        {
+            System.out.println("Not found in cache");
+
+            ResponseEntity<FakestoreProductdto> fakestoreProductdtoResponseEntity;
+            fakestoreProductdtoResponseEntity= restTemplate.getForEntity("https://fakestoreapi.com/products/{myid}",FakestoreProductdto.class,id);
+            fakestoreProductdto=fakestoreProductdtoResponseEntity.getBody();
+
+            if(fakestoreProductdtoResponseEntity.getStatusCode().equals(HttpStatusCode.valueOf(200)) && fakestoreProductdto !=null){
+                // Store the product in Redis cache and return it
+                redisTemplate.opsForHash().put("products", id, fakestoreProductdto);
+                return from(fakestoreProductdto);
+            } else {
+                return null;
+            }
         }
     }
 

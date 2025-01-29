@@ -19,7 +19,7 @@ public class ProductController
 {
 
     @Autowired
-    @Qualifier("DBSERVICE")
+    @Qualifier("3pSERVICE")
     private IProductService myproductservice;
 
 

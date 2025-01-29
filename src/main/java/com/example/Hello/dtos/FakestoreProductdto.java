@@ -4,9 +4,11 @@ package com.example.Hello.dtos;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Setter
 @Getter
-public class FakestoreProductdto
+public class FakestoreProductdto implements Serializable
 {
     private long id;
     private String title;
